@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نوتريفي — عالم التغذية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@200;400;600;800;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الجزيئات المتحركة في الخلفية -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- شريط التنقل -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <i class="fas fa-leaf"></i>
+                <span>نوتريفي</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">الرئيسية</a></li>
+                <li><a href="#calculator">حاسبة السعرات</a></li>
+                <li><a href="#meal-planner">تنظيم الوجبات</a></li>
+                <li><a href="#food-database">قاعدة الأطعمة</a></li>
+                <li><a href="#tips">نصائح غذائية</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي -->
+    <section id="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-fire-flame-curved"></i>
+                <span>صحتك في أولويتنا</span>
+            </div>
+            <h1>
+                اكتشف قوة<br>
+                <span class="gradient-text">التغذية الذكية</span>
+            </h1>
+            <p class="hero-desc">
+                احسب سعراتك، نظم وجباتك، وتعلم أساسيات التغذية الصحية بأدوات تفاعلية مصممة خصيصاً لك.
+            </p>
+            <div class="hero-actions">
+                <a href="#calculator" class="btn btn-primary">
+                    <i class="fas fa-calculator"></i>
+                    ابدأ الحساب
+                </a>
+                <a href="#food-database" class="btn btn-outline">
+                    <i class="fas fa-utensils"></i>
+                    استكشف الأطعمة
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <strong id="counter-foods">0</strong>
+                    <span>نوع غذاء</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <strong id="counter-recipes">0</strong>
+                    <span>وصفة صحية</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <strong id="counter-users">0</strong>
+                    <span>مستخدم نشط</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card card-1">
+                <i class="fas fa-apple-whole" style="color:#e74c3c"></i>
+                <div>
+                    <strong>تفاح</strong>
+                    <span>95 سعرة</span>
+                </div>
+            </div>
+            <div class="floating-card card-2">
+                <i class="fas fa-egg" style="color:#f39c12"></i>
+                <div>
+                    <strong>بيضة</strong>
+                    <span>78 سعرة</span>
+                </div>
+            </div>
+            <div class="floating-card card-3">
+                <i class="fas fa-drumstick-bite" style="color:#e67e22"></i>
+                <div>
+                    <strong>صدور دجاج</strong>
+                    <span>165 سعرة</span>
+                </div>
+            </div>
+            <div class="floating-card card-4">
+                <i class="fas fa-bowl-rice" style="color:#27ae60"></i>
+                <div>
+                    <strong>أرز بني</strong>
+                    <span>216 سعرة</span>
+                </div>
+            </div>
+            <div class="hero-circle">
+                <div class="circle-inner">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>تغذية سليمة</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- حاسبة السعرات -->
+    <section id="calculator">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-fire"></i> الأداة الرئيسية</span>
+                <h2>حاسبة السعرات الحرارية</h2>
+                <p>احسب احتياجك اليومي من السعرات بدقة بناءً على بياناتك الشخصية</p>
+            </div>
+            <div class="calc-grid">
+                <div class="calc-form-card">
+                    <h3><i class="fas fa-user-edit"></i> بياناتك الشخصية</h3>
+                    <div class="form-group">
+                        <label>الجنس</label>
+                        <div class="gender-toggle">
+                            <button class="gender-btn active" data-gender="male">
+                                <i class="fas fa-mars"></i> ذكر
+                            </button>
+                            <button class="gender-btn" data-gender="female">
+                                <i class="fas fa-venus"></i> أنثى
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>العمر</label>
+                            <input type="number" id="age" min="10" max="100" value="25" placeholder="سنة">
+                        </div>
+                        <div class="form-group">
+                            <label>الوزن (كجم)</label>
+                            <input type="number" id="weight" min="30" max="300" value="70" placeholder="كجم">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الطول (سم)</label>
+                            <input type="number" id="height" min="100" max="250" value="170" placeholder="سم">
+                        </div>
+                        <div class="form-group">
+                            <label>مستوى النشاط</label>
+                            <select id="activity">
+                                <option value="1.2">خامل (جلسة طويلة)</option>
+                                <option value="1.375">خفيف (تمرين 1-3 مرات)</option>
+                                <option value="1.55" selected>متوسط (تمرين 3-5 مرات)</option>
+                                <option value="1.725">نشط (تمرين 6-7 مرات)</option>
+                                <option value="1.9">شديد النشاط (رياضي)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>الهدف</label>
+                        <div class="goal-toggle">
+                            <button class="goal-btn" data-goal="lose">
+                                <i class="fas fa-arrow-down"></i> إنقاص
+                            </button>
+                            <button class="goal-btn active" data-goal="maintain">
+                                <i class="fas fa-equals"></i> ثبات
+                            </button>
+                            <button class="goal-btn" data-goal="gain">
+                                <i class="fas fa-arrow-up"></i> زيادة
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="calcBtn">
+                        <i class="fas fa-calculator"></i>
+                        احسب السعرات
+                    </button>
+                </div>
+                <div class="calc-result-card" id="calcResult">
+                    <div class="result-placeholder">
+                        <i class="fas fa-chart-pie"></i>
+                        <p>أدخل بياناتك واضغط على "احسب السعرات" لعرض النتيجة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تنظيم الوجبات -->
+    <section id="meal-planner">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-calendar-check"></i> خطط يومك</span>
+                <h2>منظم الوجبات اليومي</h2>
+                <p>اختر أطعمتك المفضلة ونظّم وجباتك بطريقة صحية ومتوازنة</p>
+            </div>
+            <div class="meal-day-summary">
+                <div class="summary-card">
+                    <div class="summary-icon" style="background:rgba(231,76,60,0.15);color:#e74c3c">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                        <strong id="totalCalories">0</strong>
+                        <span>سعرة حرارية</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon" style="background:rgba(46,204,113,0.15);color:#2ecc71">
+                        <i class="fas fa-dna"></i>
+                    </div>
+                    <div>
+                        <strong id="totalProtein">0</strong>
+                        <span>بروتين (جم)</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon" style="background:rgba(241,196,15,0.15);color:#f1c40f">
+                        <i class="fas fa-bread-slice"></i>
+                    </div>
+                    <div>
+                        <strong id="totalCarbs">0</strong>
+                        <span>كربوهيدرات (جم)</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-icon" style="background:rgba(230,126,34,0.15);color:#e67e22">
+                        <i class="fas fa-droplet"></i>
+                    </div>
+                    <div>
+                        <strong id="totalFat">0</strong>
+                        <span>دهون (جم)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="meals-grid">
+                <!-- الفطور -->
+                <div class="meal-slot" data-meal="breakfast">
+                    <div class="meal-slot-header">
+                        <div class="meal-icon-wrap breakfast-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div>
+                            <h4>الفطور</h4>
+                            <span class="meal-cal-count">0 سعرة</span>
+                        </div>
+                        <button class="add-food-btn" data-meal="breakfast">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="meal-items-list"></ul>
+                </div>
+                <!-- وجبة خفيفة صباحية -->
+                <div class="meal-slot" data-meal="snack1">
+                    <div class="meal-slot-header">
+                        <div class="meal-icon-wrap snack-icon">
+                            <i class="fas fa-cookie-bite"></i>
+                        </div>
+                        <div>
+                            <h4>سناك صباحي</h4>
+                            <span class="meal-cal-count">0 سعرة</span>
+                        </div>
+                        <button class="add-food-btn" data-meal="snack1">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="meal-items-list"></ul>
+                </div>
+                <!-- الغداء -->
+                <div class="meal-slot" data-meal="lunch">
+                    <div class="meal-slot-header">
+                        <div class="meal-icon-wrap lunch-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div>
+                            <h4>الغداء</h4>
+                            <span class="meal-cal-count">0 سعرة</span>
+                        </div>
+                        <button class="add-food-btn" data-meal="lunch">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="meal-items-list"></ul>
+                </div>
+                <!-- وجبة خفيفة مسائية -->
+                <div class="meal-slot" data-meal="snack2">
+                    <div class="meal-slot-header">
+                        <div class="meal-icon-wrap snack-icon">
+                            <i class="fas fa-mug-hot"></i>
+                        </div>
+                        <div>
+                            <h4>سناك مسائي</h4>
+                            <span class="meal-cal-count">0 سعرة</span>
+                        </div>
+                        <button class="add-food-btn" data-meal="snack2">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="meal-items-list"></ul>
+                </div>
+                <!-- العشاء -->
+                <div class="meal-slot" data-meal="dinner">
+                    <div class="meal-slot-header">
+                        <div class="meal-icon-wrap dinner-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div>
+                            <h4>العشاء</h4>
+                            <span class="meal-cal-count">0 سعرة</span>
+                        </div>
+                        <button class="add-food-btn" data-meal="dinner">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="meal-items-list"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قاعدة الأطعمة -->
+    <section id="food-database">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-database"></i> مكتبة شاملة</span>
+                <h2>قاعدة بيانات الأطعمة</h2>
+                <p>ابحث عن أي طعام واعرف قيمته الغذائية بالتفصيل</p>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="foodSearch" placeholder="ابحث عن طعام... (مثال: أرز، دجاج، تفاح)">
+                <select id="foodCategory">
+                    <option value="all">كل الأصناف</option>
+                    <option value="بروتين">بروتينات</option>
+                    <option value="كربوهيدرات">كربوهيدرات</option>
+                    <option value="دهون">دهون</option>
+                    <option value="فواكه">فواكه</option>
+                    <option value="خضروات">خضروات</option>
+                    <option value="مشروبات">مشروبات</option>
+                    <option value="ألبان">ألبان</option>
+                </select>
+            </div>
+            <div class="food-grid" id="foodGrid"></div>
+        </div>
+    </section>
+
+    <!-- نصائح غذائية -->
+    <section id="tips">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-lightbulb"></i> ثقافة غذائية</span>
+                <h2>نصائح غذائية ذهبية</h2>
+                <p>معلومات موثوقة تساعدك في بناء علاقة صحية مع الطعام</p>
+            </div>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-number">01</div>
+                    <div class="tip-icon"><i class="fas fa-glass-water"></i></div>
+                    <h4>اشرب الماء أولاً</h4>
+                    <p>اشرب كوب ماء قبل كل وجبة بـ 30 دقيقة. هذا يحسن الهضم ويقلل الشهية الزائدة بنسبة تصل إلى 25%.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">02</div>
+                    <div class="tip-icon"><i class="fas fa-plate-wheat"></i></div>
+                    <h4>قاعدة الصحون</h4>
+                    <p>قسّم طبقك: نصف خضروات، ربع بروتين، ربع كربوهيدرات معقدة. هذه أبسط طريقة لوجبة متوازنة.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">03</div>
+                    <div class="tip-icon"><i class="fas fa-clock"></i></div>
+                    <h4>أبطئ الأكل</h4>
+                    <p>المخ يحتاج 20 دقيقة لإدراك الشبع. الأكل البطيء يقلل السعرات المستهلكة تلقائياً بنحو 10-15%.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">04</div>
+                    <div class="tip-icon"><i class="fas fa-bed"></i></div>
+                    <h4>النوم والوزن</h4>
+                    <p>النوم أقل من 6 ساعات يزيد هرمون الجوع (الجريلين) ويقلل هرمون الشبع (اللبتين). نم 7-8 ساعات يومياً.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">05</div>
+                    <div class="tip-icon"><i class="fas fa-tags"></i></div>
+                    <h4>اقرأ الملصقات</h4>
+                    <p>ركز على 3 أشياء: السعرات لكل 100 جم، نسبة السكر المضاف، والدهون المتحولة. تجاهل الباقي في البداية.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-number">06</div>
+                    <div class="tip-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h4>البروتين أساسي</h4>
+                    <p>تناول 1.6-2.2 جم بروتين لكل كجم من وزنك إذا تمارس التمارين. يحافظ على الكتلة العضلية أثناء إنقاص الوزن.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ماكرو دايت -->
+    <section id="macro-chart">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-chart-pie"></i> توزيع المغذيات</span>
+                <h2>حاسبة الماكرو</h2>
+                <p>اعرف توزيع البروتين والكربوهيدرات والدهون المناسب لهدفك</p>
+            </div>
+            <div class="macro-container">
+                <div class="macro-input-area">
+                    <div class="form-group">
+                        <label>السعرات المستهدفة (سعرة/يوم)</label>
+                        <input type="number" id="macroCalories" value="2000" min="800" max="6000">
+                    </div>
+                    <div class="form-group">
+                        <label>نمط التوزيع</label>
+                        <select id="macroStyle">
+                            <option value="balanced">متوازن (30/40/30)</option>
+                            <option value="lowcarb">منخفض الكربوهيدرات (40/25/35)</option>
+                            <option value="highprotein">عالي البروتين (45/30/25)</option>
+                            <option value="keto">كيتو (20/5/75)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="calcMacro">
+                        <i class="fas fa-chart-pie"></i>
+                        احسب الماكرو
+                    </button>
+                </div>
+                <div class="macro-result-area" id="macroResult">
+                    <div class="macro-chart-wrap">
+                        <canvas id="macroCanvas" width="280" height="280"></canvas>
+                        <div class="macro-center-text">
+                            <strong id="macroTotalDisplay">2000</strong>
+                            <span>سعرة</span>
+                        </div>
+                    </div>
+                    <div class="macro-bars">
+                        <div class="macro-bar-item">
+                            <div class="macro-bar-label">
+                                <span class="macro-dot" style="background:#e74c3c"></span>
+                                <span>بروتين</span>
+                            </div>
+                            <div class="macro-bar-track">
+                                <div class="macro-bar-fill protein-bar" style="width:30%"></div>
+                            </div>
+                            <span class="macro-bar-value" id="macroProteinVal">150جم</span>
+                        </div>
+                        <div class="macro-bar-item">
+                            <div class="macro-bar-label">
+                                <span class="macro-dot" style="background:#f1c40f"></span>
+                                <span>كربوهيدرات</span>
+                            </div>
+                            <div class="macro-bar-track">
+                                <div class="macro-bar-fill carbs-bar" style="width:40%"></div>
+                            </div>
+                            <span class="macro-bar-value" id="macroCarbsVal">200جم</span>
+                        </div>
+                        <div class="macro-bar-item">
+                            <div class="macro-bar-label">
+                                <span class="macro-dot" style="background:#e67e22"></span>
+                                <span>دهون</span>
+                            </div>
+                            <div class="macro-bar-track">
+                                <div class="macro-bar-fill fat-bar" style="width:30%"></div>
+                            </div>
+                            <span class="macro-bar-value" id="macroFatVal">67جم</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer id="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="#hero" class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <span>نوتريفي</span>
+                </a>
+                <p>منصتك الشاملة لكل ما يخص التغذية والسعرات الحرارية. صُممت بعناية لتكون مرجعك الأول في رحلتك نحو حياة صحية.</p>
+            </div>
+            <div class="footer-links-group">
+                <h4>روابط سريعة</h4>
+                <a href="#calculator">حاسبة السعرات</a>
+                <a href="#meal-planner">تنظيم الوجبات</a>
+                <a href="#food-database">قاعدة الأطعمة</a>
+                <a href="#macro-chart">حاسبة الماكرو</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>مصادر موثوقة</h4>
+                <a href="#">وزارة الصحة المصرية</a>
+                <a href="#">منظمة الصحة العالمية</a>
+                <a href="#">Academy of Nutrition</a>
+                <a href="#">USDA FoodData</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>تواصل معنا</h4>
+                <a href="#"><i class="fab fa-twitter"></i> تويتر</a>
+                <a href="#"><i class="fab fa-instagram"></i> انستجرام</a>
+                <a href="#"><i class="fab fa-youtube"></i> يوتيوب</a>
+                <a href="#"><i class="fab fa-telegram"></i> تيليجرام</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع البيانات الغذائية تقريبية ومبنية على مصادر عامة. استشر أخصائي تغذية لخطة مخصصة.</p>
+        </div>
+    </footer>
+
+    <!-- مودال إضافة طعام -->
+    <div class="modal-overlay" id="addFoodModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus-circle"></i> إضافة طعام للوجبة</h3>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-search">
+                <i class="fas fa-search"></i>
+                <input type="text" id="modalFoodSearch" placeholder="ابحث هنا...">
+            </div>
+            <div class="modal-food-list" id="modalFoodList"></div>
+            <div class="modal-footer">
+                <span id="modalTargetMeal">الفطور</span>
+                <div class="modal-qty" id="modalQtyArea" style="display:none">
+                    <label>الكمية (جم):</label>
+                    <input type="number" id="modalQty" value="100" min="1" max="2000">
+                    <button class="btn btn-primary btn-sm" id="modalAddBtn">أضف</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- توست الإشعارات -->
+    <div id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
